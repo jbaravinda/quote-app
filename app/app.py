@@ -8,7 +8,8 @@ quotes = [
     "Life is what happens when you're busy making other plans.",
     "Do or do not. There is no try.",
     "Stay hungry, stay foolish.",
-    "In the middle of every difficulty lies opportunity."
+    "In the middle of every difficulty lies opportunity.",
+    "Hey this is test"
 ]
 
 @app.route('/')
