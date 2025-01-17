@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Quotes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #quote {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="quote">Loading...</div>
+    <button onclick="fetchQuote()">Get Another Quote</button>
+    <script>
+        async function fetchQuote() {
+            const response = await fetch('/api/quote');
+            const data = await response.json();
+            document.getElementById('quote').textContent = data.quote;
+        }
+        fetchQuote();
+    </script>
+</body>
+</html>
