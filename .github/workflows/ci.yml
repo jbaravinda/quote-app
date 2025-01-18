@@ -46,6 +46,7 @@ jobs:
         
     - name: Update deployment manifest
       run: |
+        pwd
         sed -i 's|image:.*quote-backend:.*|image: aravindad94/quote-backend:latest|' manifests/backend-deployment.yaml
         sed -i 's|image:.*quote-frontend:.*|image: aravindad94/quote-frontend:latest|' manifests/frontend-deployment.yaml
       
