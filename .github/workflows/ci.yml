@@ -42,7 +42,7 @@ jobs:
       with:
         repository: jbaravinda/deployment
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-        path: manifests
+        path: deployment
 
     - name: Update deployment manifest
       run: |
@@ -53,8 +53,8 @@ jobs:
       run: |
         git config --global user.name "jbaravinda"
         git config --global user.email "jbaravindadiascis@gmail.com"
+        pwd
         cd manifests
-        cd deployment
         git add .
         git commit -m "Update images to latest"
         git push origin master
