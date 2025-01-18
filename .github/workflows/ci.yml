@@ -56,7 +56,7 @@ jobs:
         git config --global user.name "jbaravinda"
         git config --global user.email "jbaravindadiascis@gmail.com"
         pwd
-        cd manifests
+        cd deployment/manifests
         git add .
         git commit -m "Update images to latest"
         git push origin master
