@@ -21,21 +21,36 @@ jobs:
         
     - name: Build and Push Backend Docker Image
       run: |
-        docker build -t aravindad94/quote-backend:latest -f Dockerfile .
+        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/quote-backend:latest -f Dockerfile .
         # echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-        docker push aravindad94/quote-backend:latest
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/quote-backend:latest
 
     - name: Build and Push Frontend Docker Image
       run: |
-        docker build -t aravindad94/quote-frontend:latest -f nginx/Dockerfile .
-        docker push aravindad94/quote-frontend:latest
-
-    - name: Update Deployment Repository
+        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/quote-frontend:latest -f nginx/Dockerfile .
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/quote-frontend:latest
+ 
+  # Manifest updating job      
+  update-manifests:
+    needs: building-pushing-docker-images
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout manifests repository
+      uses: actions/checkout@v3
+      with:
+        repository: jbaravinda/deployment
+        token: 34343
+        path: manifests
+        
+    - name: Update deployment manifest
       run: |
-        git clone https://github.com/jbaravinda/deployment.git
-        cd deployment
         sed -i 's|image:.*quote-backend:.*|image: aravindad94/quote-backend:latest|' manifests/backend-deployment.yaml
         sed -i 's|image:.*quote-frontend:.*|image: aravindad94/quote-frontend:latest|' manifests/frontend-deployment.yaml
+      
+    - name: Commit and push changes to deployment repository
+      run: |
+        cd manifests
+        cd deployment
         git config user.name "jbaravinda"
         git config user.email "jbaravindadiascis@gmail.com"
         git add .
