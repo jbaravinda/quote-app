@@ -24,13 +24,15 @@ jobs:
         
     - name: Build and Push Backend Docker Image
       run: |
+        docker login -u $username -p $password
         docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/quote-backend:latest -f Dockerfile .
-        sudo docker push ${{ secrets.DOCKERHUB_USERNAME }}/quote-backend:latest
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/quote-backend:latest
 
     - name: Build and Push Frontend Docker Image
-      run: |  
+      run: |
+        docker login -u $username -p $password
         docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/quote-frontend:latest -f nginx/Dockerfile .
-        sudo docker push ${{ secrets.DOCKERHUB_USERNAME }}/quote-frontend:latest
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/quote-frontend:latest
  
   # Manifest updating job      
   update-manifests:
