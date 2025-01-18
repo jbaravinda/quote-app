@@ -39,7 +39,7 @@ jobs:
       uses: actions/checkout@v3
       with:
         repository: jbaravinda/deployment
-        token: 34343
+        token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         path: manifests
         
     - name: Update deployment manifest
