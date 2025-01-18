@@ -6,6 +6,7 @@ on:
       - master
 
 jobs:
+# This job will create/update docker images relevant to code changes and push images to docker hub.
   building-pushing-docker-images:
     runs-on: ubuntu-latest
 
@@ -22,7 +23,6 @@ jobs:
     - name: Build and Push Backend Docker Image
       run: |
         docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/quote-backend:latest -f Dockerfile .
-        # echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/quote-backend:latest
 
     - name: Build and Push Frontend Docker Image
