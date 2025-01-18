@@ -43,19 +43,18 @@ jobs:
         repository: jbaravinda/deployment
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         path: manifests
-        
+
     - name: Update deployment manifest
       run: |
-        pwd
         sed -i 's|image:.*quote-backend:.*|image: aravindad94/quote-backend:latest|' manifests/backend-deployment.yaml
         sed -i 's|image:.*quote-frontend:.*|image: aravindad94/quote-frontend:latest|' manifests/frontend-deployment.yaml
       
     - name: Commit and push changes to deployment repository
       run: |
+        git config --global user.name "jbaravinda"
+        git config --global user.email "jbaravindadiascis@gmail.com"
         cd manifests
         cd deployment
-        git config user.name "jbaravinda"
-        git config user.email "jbaravindadiascis@gmail.com"
         git add .
         git commit -m "Update images to latest"
         git push origin master
