@@ -43,9 +43,11 @@ jobs:
         repository: jbaravinda/deployment
         token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         path: deployment
+        
 
     - name: Update deployment manifest
       run: |
+        cd deployment
         sed -i 's|image:.*quote-backend:.*|image: aravindad94/quote-backend:latest|' manifests/backend-deployment.yaml
         sed -i 's|image:.*quote-frontend:.*|image: aravindad94/quote-frontend:latest|' manifests/frontend-deployment.yaml
       
